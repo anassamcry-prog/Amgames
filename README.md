@@ -5,7 +5,7 @@ RTL e-commerce website for digital games, gift cards, and subscriptions - styled
 ## Live Demo
 [![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR_SITE_ID/deploy-status)](https://app.netlify.com/sites/YOUR_SITE/deploys)
 
-**[Visit Live Store →](https://your-site-name.netlify.app)**
+**[Visit Live Store →](amgamess.netlify.app)**
 
 ## Features
 - Arabic RTL layout (right-to-left)
