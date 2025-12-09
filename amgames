@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Games & Gifts - Collections</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #0a0a0a; color: #fff; }
+        .header { text-align: center; padding: 30px; background: linear-gradient(135deg, #1a1a2e, #16213e); }
+        .filters { display: flex; justify-content: center; gap: 15px; margin: 30px 0; flex-wrap: wrap; }
+        .filter-btn { padding: 12px 24px; background: #333; color: #fff; border: none; border-radius: 25px; cursor: pointer; transition: all 0.3s; }
+        .filter-btn.active, .filter-btn:hover { background: #00ff88; color: #000; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; max-width: 1400px; margin: 0 auto; }
+        .product-card { background: #1f1f1f; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,255,136,0.2); transition: transform 0.3s, box-shadow 0.3s; }
+        .product-card:hover { transform: translateY(-10px); box-shadow: 0 12px 30px rgba(0,255,136,0.4); }
+        .product-image { width: 100%; height: 220px; object-fit: cover; }
+        .product-info { padding: 20px; }
+        .product-title { font-size: 20px; font-weight: bold; margin: 0 0 10px; }
+        .product-price { color: #00ff88; font-size: 24px; font-weight: bold; }
+        .subscription-toggle { display: flex; gap: 10px; margin: 10px 0; }
+        .toggle-btn { padding: 5px 15px; background: #444; border-radius: 20px; font-size: 12px; cursor: pointer; }
+        .toggle-btn.active { background: #00ff88; color: #000; }
+        .buy-now { background: linear-gradient(135deg, #00ff88, #00cc6a); color: #000; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 15px; transition: transform 0.2s; }
+        .buy-now:hover { transform: scale(1.05); }
+        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } .filters { gap: 10px; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Digital Games, Gift Cards & Subscriptions</h1>
+        <p>Instant delivery • Secure downloads • Flexible plans</p>
+    </div>
+    <div class="filters">
+        <button class="filter-btn active" data-filter="all">All Products</button>
+        <button class="filter-btn" data-filter="games">Games</button>
+        <button class="filter-btn" data-filter="giftcards">Gift Cards</button>
+        <button class="filter-btn" data-filter="subscriptions">Subscriptions</button>
+    </div>
+    <div class="grid" id="productGrid">
+        <!-- Digital Games -->
+        <div class="product-card" data-category="games">
+            <img src="https://via.placeholder.com/400x220/ff4444/fff?text=Cyber+Arena" alt="Cyber Arena" class="product-image">
+            <div class="product-info">
+                <h3 class="product-title">Cyber Arena Shooter</h3>
+                <div class="product-price">$29.99</div>
+                <button class="buy-now">Buy Digital Download</button>
+            </div>
+        </div>
+        <!-- Gift Cards -->
+        <div class="product-card" data-category="giftcards">
+            <img src="https://via.placeholder.com/400x220/gold/000?text=$50+Gift+Card" alt="$50 Gift Card" class="product-image">
+            <div class="product-info">
+                <h3 class="product-title">$50 Digital Gift Card</h3>
+                <div class="product-price">$50.00</div>
+                <button class="buy-now">Send via Email</button>
+            </div>
+        </div>
+        <!-- Subscriptions -->
+        <div class="product-card" data-category="subscriptions">
+            <img src="https://via.placeholder.com/400x220/00ff88/000?text=Game+Pass" alt="Game Pass" class="product-image">
+            <div class="product-info">
+                <h3 class="product-title">Ultimate Game Pass</h3>
+                <div class="product-price" id="price-sub1">$9.99 <span>/month</span></div>
+                <div class="subscription-toggle">
+                    <button class="toggle-btn active" data-plan="monthly" data-target="price-sub1">Monthly</button>
+                    <button class="toggle-btn" data-plan="yearly" data-target="price-sub1">Yearly <span style="font-size:10px;">(Save 20%)</span></button>
+                </div>
+                <button class="buy-now">Subscribe Now</button>
+            </div>
+        </div>
+        <!-- Add 7-10 more cards for full collection grid -->
+    </div>
+    <script>
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const productCards = document.querySelectorAll('.product-card');
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                productCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        // Subscription toggles
+        document.querySelectorAll('.toggle-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const target = document.getElementById(btn.dataset.target);
+                const siblingBtns = btn.parentElement.querySelectorAll('.toggle-btn');
+                siblingBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                if (btn.dataset.plan === 'yearly') {
+                    target.innerHTML = '$79.99 <span>/year</span>';
+                } else {
+                    target.innerHTML = '$9.99 <span>/month</span>';
+                }
+            });
+        });
+        // Buy buttons (demo instant delivery)
+        document.querySelectorAll('.buy-now').forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert('Purchase successful! Download link emailed instantly. (Demo)');
+            });
+        });
+    </script>
+</body>
+</html>
